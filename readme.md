@@ -5,3 +5,5 @@
 <h3> 3. Subhan Indra Prayoga </h3><br>
 <h3> TI-2B </h3><br>
 
+[Laporan Link](https://github.com/Dina04/sistem-penilaian-mahasiswa-ci/tree/master/Laporan)
+
