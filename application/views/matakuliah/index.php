@@ -14,10 +14,22 @@
         <?php endif ?>
         <div class="row mt-4">
             <div class="col-md-6">
-                <a href="<?= base_url(); ?>matakuliah/tambah" class="btn btn-primary"> Tambah Data Matakuliah</a>
+                <?php
+                $status_login = $this->session->userdata('level');
+                if ($status_login == 'admin') {
+                ?>
+                    <a href="<?= base_url(); ?>matakuliah/tambah" class="btn btn-primary"> Tambah Data Matakuliah</a>
+                    <a href="<?= base_url(); ?>matakuliah/cetakLaporan" class="btn btn-info">Cetak Data Matakuliah</a>
+                <?php
+                } else {
+                ?>
+                    <a href="<?= base_url(); ?>matakuliah/cetakLaporan" class="btn btn-info">Cetak Data Matakuliah</a>
+                <?php
+                }
+                ?>
             </div>
         </div>
-        <div class="row mt-3">
+        <!-- <div class="row mt-3">
             <div class="col-md-6">
                 <form action="" method="post">
                     <div class="input-group">
@@ -28,30 +40,56 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         <br>
         <!--alert-->
         <div class="row">
             <div class="col-4">
+                <h3>Daftar Matakuliah</h3>
                 <?php if (empty($matakuliah)) : ?>
                     <div class="alert alert-danger" role="alert">
                         Data Matakuliah tidak ditemukan
                     </div>
                 <?php endif; ?>
+                <table id="listMatakuliah" class="table table-striped table-bordered">
+                    <thead>
+                        <tr style="background-color: #90EE90;">
+                            <th>No</th>
+                            <th>Daftar Matakuliah</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $no = 1;
+                        foreach ($matakuliah as $mk) {
+                        ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td>
+                                    <?= $mk->matakuliah; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $status_login = $this->session->userdata('level');
+                                    if ($status_login == 'user') {
+                                    ?>
+                                        <a href="<?= base_url(); ?>matakuliah/detail/<?= $mk->id_matakuliah ?>" class="btn btn-primary btn-sm float-right">Detail Matakuliah</a>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <a href="<?= base_url(); ?>matakuliah/detail/<?= $mk->id_matakuliah ?>" class="btn btn-primary btn-sm float-right">Detail Matakuliah</a>
+                                        <a href="<?= base_url(); ?>matakuliah/hapus/<?= $mk->id_matakuliah ?>" class="btn btn-danger btn-sm float-right" onclick="return confirm('Yakin Data ini akan dihapus');">Hapus</a>
+                                        <a href="<?= base_url(); ?>matakuliah/edit/<?= $mk->id_matakuliah ?>" class="btn btn-success btn-sm float-right">Edit</a>
+                                    <?php
+                                    }
+                                    ?>
+                                </td>
+                            <?php
+                        }
+                            ?>
+                            </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <thead>
-            <th scope="col" class="text-center table-primary">Daftar Matakuliah</th>
-            <th scope="col" class="text-center table-primary">Aksi</th>
-        </thead>
-        <tbody>
-            <?php foreach ($matakuliah as $mk) : ?> <tr>
-                    <td scope="row" class="text-left"><?= $mk['matakuliah']; ?></td>
-                    <td>
-                        <a href="<?= base_url(); ?>matakuliah/hapus/<?= $mk['id_matakuliah']; ?>" class="btn btn-danger btn-sm float-right" onclick="return confirm('Yakin Data ini akan dihapus');">Hapus</a>
-                        <a href="<?= base_url(); ?>matakuliah/detail/<?= $mk['id_matakuliah']; ?>" class="btn btn-primary btn-sm float-right">Detail Matakuliah</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-</div>

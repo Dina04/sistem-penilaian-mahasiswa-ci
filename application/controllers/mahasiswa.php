@@ -9,22 +9,43 @@ class mahasiswa extends CI_Controller
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
         $this->load->model('mahasiswa_model');
+        $this->load->model('cetak_model');
     }
 
     public function index()
     {
+        $data = array(
+            'title' => 'List Mahasiswa',
+            'mahasiswa' =>  $this->mahasiswa_model->datatabels()
+        );
 
         //modul untuk load database
         //$this->load->database();
-        $data['title'] = 'List Mahasiswa';
-        $data['mahasiswa'] = $this->mahasiswa_model->getAllMahasiswa();
+        // $data['title'] = 'List Mahasiswa';
+        // $data['mahasiswa'] = $this->mahasiswa_model->getAllMahasiswa();
         if ($this->input->post('keyword')) {
             #code...
             $data['mahasiswa'] = $this->mahasiswa_model->cariDataMahasiswa();
         }
-        $this->load->view('template/header', $data);
-        $this->load->view('mahasiswa/index', $data);
-        $this->load->view('template/footer');
+        $status_login = $this->session->userdata('level');
+        if ($status_login == 'admin') {
+            $this->load->view('admin/header_login', $data);
+            $this->load->view('mahasiswa/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'user') {
+            $this->load->view('template/header', $data);
+            $this->load->view('mahasiswa/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'dosen') {
+            $this->load->view('template/header', $data);
+            $this->load->view('mahasiswa/index', $data);
+            $this->load->view('template/footer');
+        } else {
+            redirect('auth', 'refresh');
+        }
+        // $this->load->view('template/header', $data);
+        // $this->load->view('mahasiswa/index', $data);
+        // $this->load->view('template/footer');
     }
     public function tambah()
     {
@@ -90,6 +111,16 @@ class mahasiswa extends CI_Controller
             $this->session->set_flashdata('flash-data', 'diedit');
             redirect('mahasiswa', 'refresh');
         }
+    }
+    public function cetakLaporan()
+    {
+        $data['title'] = 'Laporan Mahasiswa';
+        $data['mahasiswa'] = $this->cetak_model->viewMahasiswa();
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan_mahasiswa.pdf";
+        $this->pdf->load_view('mahasiswa/laporan', $data);
     }
 }
 /* End of file Controllername.php */

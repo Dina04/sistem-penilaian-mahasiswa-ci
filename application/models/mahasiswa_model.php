@@ -9,7 +9,8 @@ class mahasiswa_model extends CI_Model
     {
 
         //atau bisa juga menggunakan code berikut
-        return $this->db->get('mahasiswa')->result_array();
+        $query = $this->db->query("select * from mahasiswa");
+        return $query->result_array();
     }
     public function tambahdatamhs()
     {
@@ -50,6 +51,11 @@ class mahasiswa_model extends CI_Model
         $this->db->like('nim', $keyword);
         $this->db->or_like('nama', $keyword);
         return $this->db->get('mahasiswa')->result_array();
+    }
+    public function datatabels()
+    {
+        $query = $this->db->order_by('id_mahasiswa', 'DESC')->get('mahasiswa');
+        return $query->result();
     }
 }
 

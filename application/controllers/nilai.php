@@ -9,20 +9,41 @@ class nilai extends CI_Controller
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
         $this->load->model('nilai_model');
+        $this->load->model('matakuliah_model');
+        $this->load->model('mahasiswa_model');
+        $this->load->model('dosen_model');
+        $this->load->model('cetak_model');
     }
 
 
     public function index()
     {
+
         $data['title'] = 'List Nilai';
-        $data['nilai'] = $this->nilai_model->getAllNilai();
+        $data['nilai'] = $this->nilai_model->datatabels();
         if ($this->input->post('keyword')) {
             #code...
             $data['nilai'] = $this->nilai_model->cariDataNilai();
         }
-        $this->load->view('template/header', $data);
-        $this->load->view('nilai/index', $data);
-        $this->load->view('template/footer');
+        $status_login = $this->session->userdata('level');
+        if ($status_login == 'admin') {
+            $this->load->view('admin/header_login', $data);
+            $this->load->view('nilai/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'user') {
+            $this->load->view('template/header', $data);
+            $this->load->view('nilai/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'dosen') {
+            $this->load->view('dosen1/header_login', $data);
+            $this->load->view('nilai/index', $data);
+            $this->load->view('template/footer');
+        } else {
+            redirect('auth', 'refresh');
+        }
+        // $this->load->view('template/header', $data);
+        // $this->load->view('nilai/index', $data);
+        // $this->load->view('template/footer');
     }
     public function tambah()
     {
@@ -43,7 +64,7 @@ class nilai extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             # code...
-            $this->load->view('template/header', $data);
+            $this->load->view('dosen1/header_login', $data);
             $this->load->view('nilai/tambah', $data);
             $this->load->view('template/footer');
         } else {
@@ -76,7 +97,7 @@ class nilai extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             # code...
-            $this->load->view('template/header', $data);
+            $this->load->view('dosen1/header_login', $data);
             $this->load->view('nilai/edit', $data);
             $this->load->view('template/footer');
         } else {
@@ -86,6 +107,40 @@ class nilai extends CI_Controller
             $this->session->set_flashdata('flash-data', 'diedit');
             redirect('nilai', 'refresh');
         }
+    }
+
+    public function detail($id_matakuliah, $id_dosen, $id_mahasiswa, $id_nilai)
+    {
+        $data['title'] = 'Detail Nilai';
+        $data['mahasiswa'] = $this->mahasiswa_model->getMahasiswaByID($id_mahasiswa);
+        $data['nilai'] = $this->nilai_model->getNilaiByID($id_nilai);
+        $data['dosen'] = $this->dosen_model->getDosenByID($id_dosen);
+        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
+        $this->load->view('dosen1/header_login', $data);
+        $this->load->view('nilai/detail', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function detailUser($id_matakuliah, $id_dosen, $id_mahasiswa, $id_nilai)
+    {
+        $data['title'] = 'Detail Nilai';
+        $data['mahasiswa'] = $this->mahasiswa_model->getMahasiswaByID($id_mahasiswa);
+        $data['nilai'] = $this->nilai_model->getNilaiByID($id_nilai);
+        $data['dosen'] = $this->dosen_model->getDosenByID($id_dosen);
+        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
+        $this->load->view('template/header', $data);
+        $this->load->view('nilai/detail', $data);
+        $this->load->view('template/footer');
+    }
+    public function cetakLaporan()
+    {
+        $data['title'] = 'Laporan Nilai';
+        $data['nilai'] = $this->cetak_model->viewNilai();
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'landscape');
+        $this->pdf->filename = "laporan_nilai.pdf";
+        $this->pdf->load_view('nilai/laporan', $data);
     }
 }
 /* End of file nilai.php */

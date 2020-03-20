@@ -1,33 +1,60 @@
 <br>
 <center>
-    <h6>=================================================<?php echo $name ?></h6>
-    <h4>SISTEM PENILAIAN MAHASISWA<?php echo $name ?></h4>
-    <h6>=================================================<?php echo $name ?></h6>
-    <br>
-    <h5>Kelompok 7<?php echo $name ?></h5>
-    <br>
-    <div class="container">
-        <table class="table-bordered table-hover">
-            <thead>
-                <th scope="col" class="text-left table-info">No.</th>
-                <th scope="col" class="text-left table-info">Nama Kelompok</th>
-                <th scope="col" class="text-left table-info">NIM</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row" class="text-left">1</td>
-                    <td scope="row" class="text-left">Dina Risky Alin Saputri</td>
-                    <td scope="row" class="text-left">1841720016</td>
-                </tr>
-                <tr>
-                    <td scope="row" class="text-left">2</td>
-                    <td scope="row" class="text-left">Silvi Indah Novitasari</td>
-                    <td scope="row" class="text-left">1841720006</td>
-                </tr>
-                <tr>
-                    <td scope="row" class="text-left">3</td>
-                    <td scope="row" class="text-left">Subhan Indra Prayoga</td>
-                    <td scope="row" class="text-left">1841720182</td>
-                </tr>
-            </tbody>
-</center>
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="img-responsive">
+                    <img src="img\header-bg.png" width="100%">
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+
+                    <!-- demo-download-ads -->
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Informatics Engineering</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="img\team\1.png" class="img-responsive img-circle" alt="" width="230px" height="250px">
+                    <h4>Dina Risky Alin Saputri</h4>
+                    <p class="text-muted">TI-2B || 1841720016</p>
+                    <p class="text-muted">Malang, 06 Juni 2000</p>
+                    <p class="text-muted">JL. S.Supriadi III Sukun Malang</p>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="img\team\2.png" class="img-responsive img-circle" alt="" width="230px" height="250px">
+                    <h4>Silvi Indah Novita Sari</h4>
+                    <p class="text-muted">TI-2B || 1841720006</p>
+                    <p class="text-muted">Malang, 31 Juli 1999</p>
+                    <p class="text-muted">JL. Candi Sari Utara No. 98 Lowokwaru Malang</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="img\team\3.png" class="img-responsive img-circle" alt="" width="230px" height="250px">
+                    <h4>Subhan Indra Prayoga</h4>
+                    <p class="text-muted">TI-2B || 1841720182</p>
+                    <p class="text-muted">Denpasar, 17 Agustus 2000</p>
+                    <p class="text-muted">JL. Kalpataru No. 42 Lowokwaru Malang</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <p class="large text-muted"></p>
+            </div>
+        </div>
+        </div>
+    </section>

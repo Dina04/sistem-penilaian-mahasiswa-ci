@@ -9,7 +9,8 @@ class dosen_model extends CI_Model
     {
 
         //atau bisa juga menggunakan code berikut
-        return $this->db->get('dosen')->result_array();
+        $query = $this->db->query("select * from dosen");
+        return $query->result_array();
     }
 
     public function tambahdatadosen()
@@ -47,6 +48,11 @@ class dosen_model extends CI_Model
     public function getDosenByID($id_dosen)
     {
         return $this->db->get_where('dosen', ['id_dosen' => $id_dosen])->row_array();
+    }
+    public function datatabels()
+    {
+        $query = $this->db->order_by('id_dosen', 'DESC')->get('dosen');
+        return $query->result();
     }
 }
 

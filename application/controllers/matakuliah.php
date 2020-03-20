@@ -9,21 +9,42 @@ class matakuliah extends CI_Controller
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
         $this->load->model('matakuliah_model');
+        $this->load->model('cetak_model');
     }
 
 
     public function index()
     {
-        $this->load->model('matakuliah_model');
-        $data['title'] = 'List Matakuliah';
-        $data['matakuliah'] = $this->matakuliah_model->getAllMataKuliah();
+        $data = array(
+            'title' => 'List Matakuliah',
+            'matakuliah' =>  $this->matakuliah_model->datatabels()
+        );
+        // $this->load->model('matakuliah_model');
+        // $data['title'] = 'List Matakuliah';
+        // $data['matakuliah'] = $this->matakuliah_model->getAllMataKuliah();
         if ($this->input->post('keyword')) {
             #code...
             $data['matakuliah'] = $this->matakuliah_model->cariDataMatakuliah();
         }
-        $this->load->view('template/header', $data);
-        $this->load->view('matakuliah/index', $data);
-        $this->load->view('template/footer');
+        $status_login = $this->session->userdata('level');
+        if ($status_login == 'admin') {
+            $this->load->view('admin/header_login', $data);
+            $this->load->view('matakuliah/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'user') {
+            $this->load->view('template/header', $data);
+            $this->load->view('matakuliah/index', $data);
+            $this->load->view('template/footer');
+        } elseif ($status_login == 'dosen') {
+            $this->load->view('template/header', $data);
+            $this->load->view('matakuliah/index', $data);
+            $this->load->view('template/footer');
+        } else {
+            redirect('auth', 'refresh');
+        }
+        // $this->load->view('template/header', $data);
+        // $this->load->view('matakuliah/index', $data);
+        // $this->load->view('template/footer');
     }
     public function tambah()
     {
@@ -38,7 +59,7 @@ class matakuliah extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             # code...
-            $this->load->view('template/header', $data);
+            $this->load->view('admin/header_login', $data);
             $this->load->view('matakuliah/tambah', $data);
             $this->load->view('template/footer');
         } else {
@@ -53,9 +74,35 @@ class matakuliah extends CI_Controller
     {
         $data['title'] = 'Detail Matakuliah';
         $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
-        $this->load->view('template/header', $data);
+        $this->load->view('admin/header_login', $data);
         $this->load->view('matakuliah/detail', $data);
         $this->load->view('template/footer');
+    }
+    public function edit($id_matakuliah)
+    {
+
+        $data['title'] = 'Form Edit Data Matakuliah';
+        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
+
+        $this->load->library('form_validation');
+
+        //$this->form_validation->set_rules('fielname', 'fieldlabel', 'trim|required|min_length[5]|max_length[12]');
+        $this->form_validation->set_rules('matakuliah', 'Matakuliah', 'required');
+        $this->form_validation->set_rules('kode_mk', 'Kode_mk', 'required');
+        $this->form_validation->set_rules('sks', 'Sks', 'required|numeric');
+
+        if ($this->form_validation->run() == FALSE) {
+            # code...
+            $this->load->view('template/header', $data);
+            $this->load->view('matakuliah/edit', $data);
+            $this->load->view('template/footer');
+        } else {
+            # code...
+            $this->matakuliah_model->ubahdatamk();
+            // untuk flashdata mmepunyai 2 parameter (nama flashdata/alias, isi dari flashdatanya)
+            $this->session->set_flashdata('flash-data', 'diedit');
+            redirect('matakuliah', 'refresh');
+        }
     }
     public function hapus($id_matakuliah)
     {
@@ -63,6 +110,16 @@ class matakuliah extends CI_Controller
         // untuk flashdata mmepunyai 2 parameter (nama flashdata/alias, isi dari flashdatanya)
         $this->session->set_flashdata('flash-data', 'dihapus');
         redirect('matakuliah', 'refresh');
+    }
+    public function cetakLaporan()
+    {
+        $data['title'] = 'Laporan Matakuliah';
+        $data['matakuliah'] = $this->cetak_model->viewMatakuliah();
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan_matakuliah.pdf";
+        $this->pdf->load_view('matakuliah/laporan', $data);
     }
 }
 
