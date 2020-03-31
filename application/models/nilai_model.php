@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class nilai_model extends CI_Model
+class Nilai_model extends CI_Model
 {
 
     public function getAllNilai()
@@ -83,6 +83,21 @@ class nilai_model extends CI_Model
     {
         $query = $this->db->get('matakuliah');
         return $query->result_array();
+    }
+    public function datatabels()
+    {
+        $query = $this->db->query("select * from nilai n join mahasiswa m on m.id_mahasiswa = n.id_mahasiswa join dosen d on d.id_dosen = n.id_dosen join matakuliah mk on mk.id_matakuliah = n.id_matakuliah order by n.id_nilai DESC");
+        return $query->result();
+    }
+
+    //tambahan untuk rest-server
+    public function getNilai($id = null)
+    {
+        if ($id === null) {
+            return $this->db->get('nilai')->result_array();
+        } else {
+            return $this->db->get_where('nilai', ['id_nilai' => $id])->result_array();
+        }
     }
 }
 

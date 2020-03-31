@@ -2,14 +2,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class dosen_model extends CI_Model
+class Dosen_model extends CI_Model
 {
 
     public function getAllDosen()
     {
 
         //atau bisa juga menggunakan code berikut
-        return $this->db->get('dosen')->result_array();
+        $query = $this->db->query("select * from dosen");
+        return $query->result_array();
     }
 
     public function tambahdatadosen()
@@ -48,6 +49,12 @@ class dosen_model extends CI_Model
     {
         return $this->db->get_where('dosen', ['id_dosen' => $id_dosen])->row_array();
     }
+    public function datatabels()
+    {
+        $query = $this->db->order_by('id_dosen', 'DESC')->get('dosen');
+        return $query->result();
+    }
 }
+
 
 /* End of file dosen_model.php */
