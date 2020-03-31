@@ -8,11 +8,19 @@ class Nilai extends CI_Controller
     {
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
+<<<<<<< HEAD
         $this->load->model('Nilai_model');
         $this->load->model('Matakuliah_model');
         $this->load->model('Mahasiswa_model');
         $this->load->model('Dosen_model');
         $this->load->model('Cetak_model');
+=======
+        $this->load->model('nilai_model');
+        $this->load->model('matakuliah_model');
+        $this->load->model('mahasiswa_model');
+        $this->load->model('dosen_model');
+        $this->load->model('cetak_model');
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
     }
 
 
@@ -20,7 +28,11 @@ class Nilai extends CI_Controller
     {
 
         $data['title'] = 'List Nilai';
+<<<<<<< HEAD
         $data['nilai'] = $this->Nilai_model->datatabels();
+=======
+        $data['nilai'] = $this->nilai_model->datatabels();
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         if ($this->input->post('keyword')) {
             #code...
             $data['nilai'] = $this->Nilai_model->cariDataNilai();
@@ -112,10 +124,17 @@ class Nilai extends CI_Controller
     public function detail($id_matakuliah, $id_dosen, $id_mahasiswa, $id_nilai)
     {
         $data['title'] = 'Detail Nilai';
+<<<<<<< HEAD
         $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaByID($id_mahasiswa);
         $data['nilai'] = $this->Nilai_model->getNilaiByID($id_nilai);
         $data['dosen'] = $this->Dosen_model->getDosenByID($id_dosen);
         $data['matakuliah'] = $this->Matakuliah_model->getMatakuliahByID($id_matakuliah);
+=======
+        $data['mahasiswa'] = $this->mahasiswa_model->getMahasiswaByID($id_mahasiswa);
+        $data['nilai'] = $this->nilai_model->getNilaiByID($id_nilai);
+        $data['dosen'] = $this->dosen_model->getDosenByID($id_dosen);
+        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->view('dosen1/header_login', $data);
         $this->load->view('nilai/detail', $data);
         $this->load->view('template/footer');
@@ -124,10 +143,17 @@ class Nilai extends CI_Controller
     public function detailUser($id_matakuliah, $id_dosen, $id_mahasiswa, $id_nilai)
     {
         $data['title'] = 'Detail Nilai';
+<<<<<<< HEAD
         $data['mahasiswa'] = $this->Mahasiswa_model->getMahasiswaByID($id_mahasiswa);
         $data['nilai'] = $this->Nilai_model->getNilaiByID($id_nilai);
         $data['dosen'] = $this->Dosen_model->getDosenByID($id_dosen);
         $data['matakuliah'] = $this->Matakuliah_model->getMatakuliahByID($id_matakuliah);
+=======
+        $data['mahasiswa'] = $this->mahasiswa_model->getMahasiswaByID($id_mahasiswa);
+        $data['nilai'] = $this->nilai_model->getNilaiByID($id_nilai);
+        $data['dosen'] = $this->dosen_model->getDosenByID($id_dosen);
+        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->view('template/header', $data);
         $this->load->view('nilai/detail', $data);
         $this->load->view('template/footer');
@@ -135,7 +161,11 @@ class Nilai extends CI_Controller
     public function cetakLaporan()
     {
         $data['title'] = 'Laporan Nilai';
+<<<<<<< HEAD
         $data['nilai'] = $this->Cetak_model->viewNilai();
+=======
+        $data['nilai'] = $this->cetak_model->viewNilai();
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'landscape');

@@ -89,6 +89,7 @@ class Nilai_model extends CI_Model
         $query = $this->db->query("select * from nilai n join mahasiswa m on m.id_mahasiswa = n.id_mahasiswa join dosen d on d.id_dosen = n.id_dosen join matakuliah mk on mk.id_matakuliah = n.id_matakuliah order by n.id_nilai DESC");
         return $query->result();
     }
+<<<<<<< HEAD
 
     //tambahan untuk rest-server
     public function getNilai($id = null)
@@ -99,6 +100,8 @@ class Nilai_model extends CI_Model
             return $this->db->get_where('nilai', ['id_nilai' => $id])->result_array();
         }
     }
+=======
+>>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
 }
 
 /* End of file ModelName.php */

@@ -1,18 +1,16 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dosen1 extends CI_Controller
+class admin extends CI_Controller
 {
     public function __construct()
     {
+        //digunakan untuk menjalankan fungsi construct pada class parrent(ci_controller)
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
-<<<<<<< HEAD
-        $this->load->model('Dosen1_model');
-=======
-        $this->load->model('dosen1_model');
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
+        $this->load->model('auth_model');
 
         if ($this->session->userdata('level') == "user") {
             redirect('user', 'refresh');
@@ -22,15 +20,16 @@ class Dosen1 extends CI_Controller
             $data['title'] = 'Login User';
             $this->load->view('auth/header_login', $data);
             $this->load->view('auth/login', $data);
-        } elseif ($this->session->userdata('level') != "dosen") {
+        } elseif ($this->session->userdata('level') != "admin") {
             redirect('auth', 'refresh');
         }
     }
 
     public function index()
     {
-        $data['title'] = 'Halaman Dosen';
-        $this->load->view('dosen1/header_login', $data);
-        $this->load->view('dosen1/index');
+        $data['title'] = 'Halaman Admin';
+        $this->load->view('admin/header_login', $data);
+        $this->load->view('admin/index');
     }
 }
+/* End of file admin.php */
