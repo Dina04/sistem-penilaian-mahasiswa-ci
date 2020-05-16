@@ -8,11 +8,7 @@ class Dosen1 extends CI_Controller
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
-<<<<<<< HEAD
         $this->load->model('Dosen1_model');
-=======
-        $this->load->model('dosen1_model');
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
 
         if ($this->session->userdata('level') == "user") {
             redirect('user', 'refresh');

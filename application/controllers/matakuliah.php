@@ -8,13 +8,8 @@ class Matakuliah extends CI_Controller
     {
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
-<<<<<<< HEAD
         $this->load->model('Matakuliah_model');
         $this->load->model('Cetak_model');
-=======
-        $this->load->model('matakuliah_model');
-        $this->load->model('cetak_model');
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
     }
 
 
@@ -22,19 +17,11 @@ class Matakuliah extends CI_Controller
     {
         $data = array(
             'title' => 'List Matakuliah',
-<<<<<<< HEAD
             'matakuliah' =>  $this->Matakuliah_model->datatabels()
         );
         // $this->load->model('Matakuliah_model');
         // $data['title'] = 'List Matakuliah';
         // $data['matakuliah'] = $this->Matakuliah_model->getAllMataKuliah();
-=======
-            'matakuliah' =>  $this->matakuliah_model->datatabels()
-        );
-        // $this->load->model('matakuliah_model');
-        // $data['title'] = 'List Matakuliah';
-        // $data['matakuliah'] = $this->matakuliah_model->getAllMataKuliah();
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         if ($this->input->post('keyword')) {
             #code...
             $data['matakuliah'] = $this->Matakuliah_model->cariDataMatakuliah();
@@ -86,11 +73,7 @@ class Matakuliah extends CI_Controller
     public function detail($id_matakuliah)
     {
         $data['title'] = 'Detail Matakuliah';
-<<<<<<< HEAD
         $data['matakuliah'] = $this->Matakuliah_model->getMatakuliahByID($id_matakuliah);
-=======
-        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->view('admin/header_login', $data);
         $this->load->view('matakuliah/detail', $data);
         $this->load->view('template/footer');
@@ -99,11 +82,7 @@ class Matakuliah extends CI_Controller
     {
 
         $data['title'] = 'Form Edit Data Matakuliah';
-<<<<<<< HEAD
         $data['matakuliah'] = $this->Matakuliah_model->getMatakuliahByID($id_matakuliah);
-=======
-        $data['matakuliah'] = $this->matakuliah_model->getMatakuliahByID($id_matakuliah);
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
 
         $this->load->library('form_validation');
 
@@ -119,11 +98,7 @@ class Matakuliah extends CI_Controller
             $this->load->view('template/footer');
         } else {
             # code...
-<<<<<<< HEAD
             $this->Matakuliah_model->ubahdatamk();
-=======
-            $this->matakuliah_model->ubahdatamk();
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
             // untuk flashdata mmepunyai 2 parameter (nama flashdata/alias, isi dari flashdatanya)
             $this->session->set_flashdata('flash-data', 'diedit');
             redirect('matakuliah', 'refresh');
@@ -139,11 +114,7 @@ class Matakuliah extends CI_Controller
     public function cetakLaporan()
     {
         $data['title'] = 'Laporan Matakuliah';
-<<<<<<< HEAD
         $data['matakuliah'] = $this->Cetak_model->viewMatakuliah();
-=======
-        $data['matakuliah'] = $this->cetak_model->viewMatakuliah();
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');

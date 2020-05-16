@@ -54,8 +54,16 @@ class Nilai extends REST_Controller
                 $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
             }
 
-            $this->db->query("select * from nilai n join mahasiswa m on m.id_mahasiswa = n.id_mahasiswa join dosen d on d.id_dosen = n.id_dosen join matakuliah mk on mk.id_matakuliah = n.id_matakuliah order by n.id_nilai DESC");
-            $nilai = $this->db->get("nilai")->row_array();
+            $this->db->select('*');
+            $this->db->from('nilai nl');
+            $this->db->join('mahasiswa m', 'nl.id_mahasiswa = m.id_mahasiswa');
+            $this->db->join('dosen d', 'nl.id_dosen = d.id_dosen');
+            $this->db->join('matakuliah mk', 'nl.id_matakuliah = mk.id_matakuliah');
+            $this->db->where(array("id_nilai" => $id));
+            $nilai = $this->db->get()->row_array();
+
+            // $this->db->query("select * from nilai n join mahasiswa m on m.id_mahasiswa = n.id_mahasiswa join dosen d on d.id_dosen = n.id_dosen join matakuliah mk on mk.id_matakuliah = n.id_matakuliah order by n.id_nilai DESC where id.nilai = $id");
+            // $nilai = $this->db->get("nilai")->row_array();
 
 
             $this->response($nilai, REST_Controller::HTTP_OK);

@@ -8,34 +8,21 @@ class Mahasiswa extends CI_Controller
     {
         //digunakan untuk menjalankan fungsi constrauct pada class parrent(ci_controller)
         parent::__construct();
-<<<<<<< HEAD
         $this->load->model('Mahasiswa_model');
         $this->load->model('Cetak_model');
-=======
-        $this->load->model('mahasiswa_model');
-        $this->load->model('cetak_model');
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
     }
 
     public function index()
     {
         $data = array(
             'title' => 'List Mahasiswa',
-<<<<<<< HEAD
             'mahasiswa' =>  $this->Mahasiswa_model->datatabels()
-=======
-            'mahasiswa' =>  $this->mahasiswa_model->datatabels()
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         );
 
         //modul untuk load database
         //$this->load->database();
         // $data['title'] = 'List Mahasiswa';
-<<<<<<< HEAD
         // $data['mahasiswa'] = $this->Mahasiswa_model->getAllMahasiswa();
-=======
-        // $data['mahasiswa'] = $this->mahasiswa_model->getAllMahasiswa();
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         if ($this->input->post('keyword')) {
             #code...
             $data['mahasiswa'] = $this->Mahasiswa_model->cariDataMahasiswa();
@@ -128,11 +115,7 @@ class Mahasiswa extends CI_Controller
     public function cetakLaporan()
     {
         $data['title'] = 'Laporan Mahasiswa';
-<<<<<<< HEAD
         $data['mahasiswa'] = $this->Cetak_model->viewMahasiswa();
-=======
-        $data['mahasiswa'] = $this->cetak_model->viewMahasiswa();
->>>>>>> a88752d53e9ca38bb2ea73f31f72e373e4c1c612
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');
